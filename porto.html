@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Materialize - Compiled and minified CSS-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Font Awesome Icons - CSS-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+
+    <title>Ali Mohamed Ali | Data Analyst</title>
+
+    <!-- Meta Tags -->
+    <meta name="author" content="Ali Mohamed Ali" />
+    <meta name="description" content="Data Analyst with a passion for transforming data into actionable insights and driving business growth through analytics and innovation." />
+    <meta property="og:title" content="Ali Mohamed Ali | Data Analyst" />
+    <meta property="og:description" content="Data Analyst with a passion for transforming data into actionable insights." />
+    <meta property="og:image" content="/assets/img/data.png" />
+
+    <style>
+        :root {
+            --primary-color: #00FF7F;
+            --background-dark: #1a1a2e;
+            --background-light: #1f1f35;
+            --text-light: #f0f0f0;
+            --text-dark: #111;
+            --card-background: #2a2a4a;
+        }
+
+        /* --- Custom Cursor --- */
+        body {
+            cursor: none;
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--background-dark);
+            color: var(--text-light);
+            overflow: hidden;
+        }
+
+        .cursor-dot, .cursor-dot-outline {
+            pointer-events: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out, transform 0.2s ease-in-out;
+        }
+
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--primary-color);
+        }
+
+        .cursor-dot-outline {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--primary-color);
+            background-color: rgba(0, 255, 127, 0.1);
+        }
+
+        body.cursor-visible .cursor-dot,
+        body.cursor-visible .cursor-dot-outline {
+            opacity: 1;
+        }
+
+        a, button, .nav-link, .card-action a, .sidenav-trigger, .btn-floating {
+            cursor: none !important;
+        }
+        
+        /* --- Animations & Transitions --- */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInSlideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes iconBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        main { padding-left: 280px; height: 100vh; overflow: hidden; }
+        
+        .page {
+            display: none; height: 100vh;
+            overflow-y: auto; padding: 2rem 3rem;
+        }
+        
+        .page.active {
+            display: block;
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        
+        .page.active .page-title,
+        .page.active .row {
+            opacity: 0;
+            animation: fadeInSlideUp 0.6s ease-out forwards;
+        }
+
+        /* Staggered animation for rows/content */
+        .page.active .row:nth-child(2) { animation-delay: 0.1s; }
+        .page.active .row:nth-child(3) { animation-delay: 0.2s; }
+        .page.active .row:nth-child(4) { animation-delay: 0.3s; }
+        
+        #intro.page.active { display: flex; align-items: center; justify-content: center; text-align: center; padding: 0; }
+        .page-title { font-weight: 300; margin: 0 0 40px; text-transform: uppercase; font-size: 2.5rem; border-bottom: 2px solid var(--primary-color); padding-bottom: 10px; display: inline-block; }
+
+        /* Navigation */
+        .sidenav.fixed { background-color: #1a1a1a; width: 280px; }
+        .sidenav .user-view { padding: 32px 16px 16px; border-bottom: 1px solid #333; }
+        .sidenav .profile-pic { width: 120px; height: 120px; border: 5px solid rgba(0, 255, 127, 0.2); }
+        .sidenav-trigger i { color: var(--primary-color); }
+        .sidenav li > a { color: var(--text-light); font-size: 1.1rem; padding: 0 24px; font-weight: 500; transition: background-color 0.3s, padding-left 0.3s; }
+        .sidenav li > a:hover { background-color: #222; }
+        .sidenav li.active > a { background-color: var(--background-light); color: var(--primary-color); font-weight: bold; }
+        .sidenav li > a > i.fa-fw { margin-right: 20px; font-size: 1.2em; width: 25px; }
+
+        /* Intro Section */
+        #intro { position: relative; background: url('/assets/img/background.jpg') no-repeat center center/cover; height: 100%; }
+        #intro .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); }
+        #intro .container { position: relative; z-index: 1; }
+        #intro h2 { font-size: 3.2rem; font-weight: 300; }
+        #intro h5 { font-size: 1.6rem; font-weight: 300; }
+        #intro .typing { color: var(--primary-color); font-weight: 500; }
+
+        /* Intro Feature Items */
+        .feature-item { text-align: center; color: var(--text-light); transition: transform 0.3s ease; }
+        .feature-item:hover { transform: translateY(-10px); }
+        .feature-item i { color: var(--primary-color); margin-bottom: 15px; }
+        .feature-item h5 { font-size: 1.3rem; font-weight: 300; }
+        
+        /* Card styling */
+        .card {
+            background-color: var(--card-background); border-radius: 8px;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            display: flex; flex-direction: column; height: 100%;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 30px -5px rgba(0, 255, 127, 0.4);
+        }
+        .card .card-content { background-color: transparent; color: var(--text-light); flex-grow: 1; }
+        .card .card-action { background-color: transparent; border-top: 1px solid rgba(255, 255, 255, 0.1); }
+        .card .card-image { height: 200px; overflow: hidden; }
+        .card .card-image img { width: 100%; height: 100%; object-fit: cover; }
+        .card .card-title { color: var(--primary-color) !important; font-weight: 500; }
+        .card .card-action a { color: var(--primary-color) !important; text-transform: uppercase; font-weight: 600; }
+        
+        /* Skills Section */
+        #skills .card { background-color: var(--background-light); }
+        #skills .card h4 { font-size: 1.5rem; font-weight: 500; border-bottom: 1px solid #444; padding-bottom: 10px; margin-bottom: 25px; }
+        #skills .skill-item { text-align: center; margin-bottom: 25px; transition: transform 0.3s; }
+        #skills .skill-item:hover { transform: scale(1.1); }
+        #skills .skill-item img { max-height: 50px; margin-bottom: 10px; }
+        #skills .skill-item i { font-size: 3rem; margin-bottom: 10px; display: block; color: #b0b0d0; }
+        #skills .skill-item span { font-size: 1rem; }
+        
+        /* Contact Section */
+        #contact .social-icons a {
+            margin: 0 15px;
+            display: inline-block; /* Required for transform */
+        }
+        #contact .social-icons a:hover {
+            animation: iconBounce 0.6s ease;
+        }
+
+        @media (max-width: 992px) {
+            main { padding-left: 0; }
+            .page { padding: 1.5rem; }
+            #intro h2 { font-size: 2.2rem; }
+            #intro h5 { font-size: 1.2rem; }
+            .page-title { font-size: 1.8rem; }
+            .cursor-dot, .cursor-dot-outline { display: none; }
+            body { cursor: auto; }
+            a, button { cursor: pointer !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cursor-dot"></div>
+    <div class="cursor-dot-outline"></div>
+
+    <!-- Navigation Menu-->
+    <ul id="slide-out" class="sidenav sidenav-fixed">
+        <li>
+            <div class="user-view center-align">
+                <a href="#intro" class="nav-link"><img class="circle profile-pic" src="/assets/img/data.png" alt="Avatar"></a>
+                <a href="#intro" class="nav-link"><span class="white-text name" style="font-size: 1.8rem; font-weight: 500; margin-top: 10px; display:block;">Ali Mohamed Ali</span></a>
+                <span class="white-text email">Data Analyst</span>
+            </div>
+        </li>
+        <li class="active"><a href="#intro" class="nav-link waves-effect"><i class="fa-solid fa-house fa-fw"></i>Home</a></li>
+        <li><a href="#about" class="nav-link waves-effect"><i class="fa-solid fa-user-tie fa-fw"></i>About Me</a></li>
+        <li><a href="#services" class="nav-link waves-effect"><i class="fa-solid fa-briefcase fa-fw"></i>Services</a></li>
+        <li><a href="#projects" class="nav-link waves-effect"><i class="fa-solid fa-laptop-code fa-fw"></i>Projects</a></li>
+        <li><a href="#skills" class="nav-link waves-effect"><i class="fa-solid fa-star fa-fw"></i>Skills</a></li>
+        <li><a href="#contact" class="nav-link waves-effect"><i class="fa-solid fa-paper-plane fa-fw"></i>Contact</a></li>
+        <li><div class="divider"></div></li>
+        <li><a href="https://drive.google.com/drive/folders/1VzlLpP5KXvg0IzmqcBCowZwslQk2dj4p" target="_blank" class="waves-effect"><i class="fa-solid fa-file-arrow-down fa-fw"></i>Resume</a></li>
+    </ul>
+    <a href="#" data-target="slide-out" class="sidenav-trigger hide-on-large-only"><i class="material-icons">menu</i></a>
+
+    <!-- Main Content-->
+    <main>
+        <!-- Intro Page -->
+        <section id="intro" class="page active">
+            <div class="overlay"></div>
+            <div class="container">
+                <h2 class="white-text">Hello, I'm Ali Mohamed Ali.</h2>
+                <h5 class="white-text">I am a <span class="typing"></span></h5>
+                <div class="row" style="margin-top: 3rem;">
+                    <div class="col s12 m4 feature-item">
+                        <i class="fas fa-database fa-3x"></i>
+                        <h5>Data-Driven Decisions</h5>
+                    </div>
+                    <div class="col s12 m4 feature-item">
+                        <i class="fas fa-lightbulb fa-3x"></i>
+                        <h5>Actionable Insights</h5>
+                    </div>
+                    <div class="col s12 m4 feature-item">
+                        <i class="fas fa-chart-line fa-3x"></i>
+                        <h5>Driving Business Growth</h5>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Page -->
+        <section id="about" class="page">
+            <h3 class="page-title white-text"><i class="fa-solid fa-user-tie"></i> About Me</h3>
+            <div class="row" style="display: flex; align-items: center;">
+                <div class="col s12 l4 center-align">
+                    <img src="/assets/img/my16.png" alt="Ali Mohamed Ali Profile" class="responsive-img z-depth-3" style="border-radius: 8px; max-width: 250px;">
+                </div>
+                <div class="col s12 l8">
+                    <p class="flow-text">My name is Ali Mohamed Ali. I am a passionate developer with deep experience in Data Science, Machine Learning, and Business Analytics. I thrive on solving complex problems using data and building intelligent systems to drive business success. <i class="fa-solid fa-chart-line" style="color: var(--primary-color);"></i></p>
+                    <p class="flow-text">As a (Big) data professional, I have a strong passion for developing insightful dashboards, comprehensive reports, robust data models, and performance-related analytics. <i class="fa-solid fa-magnifying-glass-chart" style="color: var(--primary-color);"></i></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Page -->
+        <section id="services" class="page">
+             <h3 class="page-title white-text"><i class="fa-solid fa-briefcase"></i> My Services</h3>
+             <div class="row">
+                <div class="col s12 m6 l4" style="margin-bottom: 2rem;"><div class="card"><div class="card-content center-align"><i class="fas fa-chart-pie fa-3x" style="color:#00FF7F;"></i><h5>Data Analysis</h5><p>Turning complex information into clear, meaningful patterns and trends.</p></div></div></div>
+                <div class="col s12 m6 l4" style="margin-bottom: 2rem;"><div class="card"><div class="card-content center-align"><i class="fas fa-tachometer-alt fa-3x" style="color: #FFFF00;"></i><h5>Dashboarding</h5><p>Transforming raw data into actionable insights for better decision-making.</p></div></div></div>
+                <div class="col s12 m6 l4" style="margin-bottom: 2rem;"><div class="card"><div class="card-content center-align"><i class="fas fa-brain fa-3x" style="color: #FF00FF;"></i><h5>Machine Learning</h5><p>Building intelligent systems that predict trends and uncover patterns.</p></div></div></div>
+                <div class="col s12 m6 l4" style="margin-bottom: 2rem;"><div class="card"><div class="card-content center-align"><i class="fas fa-database fa-3x" style="color: #00FFFF;"></i><h5>Database Management</h5><p>Designing robust databases for optimal data storage and performance.</p></div></div></div>
+                <div class="col s12 m6 l4" style="margin-bottom: 2rem;"><div class="card"><div class="card-content center-align"><i class="fas fa-lightbulb fa-3x" style="color: #FF7F50;"></i><h5>Problem Solving</h5><p>Finding innovative, data-driven solutions for every business challenge.</p></div></div></div>
+                <div class="col s12 m6 l4" style="margin-bottom: 2rem;"><div class="card"><div class="card-content center-align"><i class="fas fa-users-gear fa-3x" style="color: #ADD8E6;"></i><h5>Team Leadership</h5><p>Guiding teams to success through collaboration and inspiring leadership.</p></div></div></div>
+            </div>
+        </section>
+        
+        <!-- Projects Page -->
+        <section id="projects" class="page">
+             <h3 class="page-title white-text"><i class="fa-solid fa-laptop-code"></i> My Projects</h3>
+             <div class="row">
+                <div class="col s12 m6 l4" style="margin-bottom: 2rem;"><div class="card"><div class="card-image"><img alt="healthcare" src="/assets/img/healthcare.png"/></div><div class="card-content"><span class="card-title">Healthcare Data<i class="project-icon fa-solid fa-hospital"></i></span><p>This project emphasized the importance of data in enhancing patient outcomes, optimizing costs, and improving service quality.</p></div><div class="card-action"><a href="https://github.com/AliiiMohamedAliii/Analyzing-healthcare-data" target="_blank">View Project</a></div></div></div>
+                <div class="col s12 m6 l4" style="margin-bottom: 2rem;"><div class="card"><div class="card-image"><img alt="churn" src="/assets/img/churn rate.png"/></div><div class="card-content"><span class="card-title">Churn Rate Analysis<i class="project-icon fa-solid fa-user-slash"></i></span><p>This Power BI project delves deep into the dynamics of customer churn, uncovering insights to help businesses reduce churn and increase retention.</p></div><div class="card-action"><a href="https://github.com/AliiiMohamedAliii/Churn-rate-analysis" target="_blank">View Project</a></div></div></div>
+                <div class="col s12 m6 l4" style="margin-bottom: 2rem;"><div class="card"><div class="card-image"><img alt="sales" src="/assets/img/sales.png"/></div><div class="card-content"><span class="card-title">Sales Prediction<i class="project-icon fa-solid fa-sack-dollar"></i></span><p>Developed a sales prediction model using Python (Linear Regression, Random Forest) and created a Streamlit app for real-time predictions.</p></div><div class="card-action"><a href="https://github.com/AliiiMohamedAliii/Sales_project" target="_blank">View Project</a></div></div></div>
+             </div>
+             <div class="row">
+                <div class="col s12 m6 l4" style="margin-bottom: 2rem;"><div class="card"><div class="card-image"><img alt="football analysis" src="/assets/img/football.png"/></div><div class="card-content"><span class="card-title">Egyptian League Analysis<i class="project-icon fa-solid fa-futbol"></i></span><p>Developed a Power BI dashboard analyzing Egyptian League data (2000-2024) to provide insights into team performance and other key metrics.</p></div><div class="card-action"><a href="https://github.com/AliiiMohamedAliii/Egyptian-league-performance-analysis" target="_blank">View Project</a></div></div></div>
+                <div class="col s12 m6 l4" style="margin-bottom: 2rem;"><div class="card"><div class="card-image"><img alt="music platform" src="/assets/img/spotify.png"/></div><div class="card-content"><span class="card-title">Music Platform DB<i class="project-icon fa-solid fa-music"></i></span><p>Designed a music streaming platform with a focus on user authentication and playlist management, leveraging skills in SQL and database design.</p></div><div class="card-action"><a href="https://github.com/AliiiMohamedAliii/Music-Streaming-Platform-Development" target="_blank">View Project</a></div></div></div>
+                <div class="col s12 m6 l4" style="margin-bottom: 2rem;"><div class="card"><div class="card-image"><img alt="movie rating" src="/assets/img/movies.png"/></div><div class="card-content"><span class="card-title">Movie Rating Prediction<i class="project-icon fa-solid fa-film"></i></span><p>This project predicts movie ratings using machine learning. The models provided reliable and accurate predictions on a cleaned dataset.</p></div><div class="card-action"><a href="https://github.com/AliiiMohamedAliii/Prediction_of_average_rate_of_movies" target="_blank">View Project</a></div></div></div>
+             </div>
+             <div class="row">
+                <div class="col s12 m6 l4" style="margin-bottom: 2rem;"><div class="card"><div class="card-image"><img alt="Student Depression Prediction" src="/assets/img/depression.png"/></div><div class="card-content"><span class="card-title">Predicting Student Depression<i class="project-icon fa-solid fa-brain"></i></span><p>This project analyzes variables such as academic pressure and sleep duration to uncover key insights for early intervention and mental health strategies.</p></div><div class="card-action"><a href="https://github.com/AliiiMohamedAliii/Student-depression-prediction" target="_blank">View Project</a></div></div></div>
+                <div class="col s12 m6 l4" style="margin-bottom: 2rem;"><div class="card"><div class="card-image"><img alt="Viva Palestine App" src="/assets/img/palestine.png"/></div><div class="card-content"><span class="card-title">Viva Palestine Solidarity App<i class="project-icon fa-solid fa-flag"></i></span><p>A Streamlit app to celebrate and promote Palestinian culture through trivia, virtual tours, and cultural showcases, fostering solidarity and advocacy.</p></div><div class="card-action"><a href="https://palestine-kpbodjpzfqgmw7kyanpxmc.streamlit.app/" target="_blank">View Project</a></div></div></div>
+                <div class="col s12 m6 l4" style="margin-bottom: 2rem;"><div class="card"><div class="card-image"><img alt="Rock-Paper-Scissors Game" src="/assets/img/rps.png"/></div><div class="card-content"><span class="card-title">Rock-Paper-Scissors Game<i class="project-icon fa-solid fa-hand-scissors"></i></span><p>An interactive Rock-Paper-Scissors game with dynamic difficulty, multilingual support, and gamification features like score tracking and achievements.</p></div><div class="card-action"><a href="https://rock-paper-sciapprs-j7vcfnfh7uz47rzyvzcsxr.streamlit.app/" target="_blank">View Project</a></div></div></div>
+             </div>
+        </section>
+
+        <!-- Skills Page -->
+        <section id="skills" class="page">
+            <h3 class="page-title white-text"><i class="fa-solid fa-star"></i> My Skills</h3>
+            <div class="row">
+                <div class="col s12 m6" style="margin-bottom: 1.5rem;"><div class="card"><div class="card-content">
+                    <h4><i class="fa-solid fa-code"></i> Programming Languages</h4>
+                    <div class="row">
+                        <div class="col s4 skill-item"><img alt="Python" src="https://www.vectorlogo.zone/logos/python/python-icon.svg" class="responsive-img" /><span>Python</span></div>
+                        <div class="col s4 skill-item"><img alt="R" src="https://www.vectorlogo.zone/logos/r-project/r-project-icon.svg" class="responsive-img" /><span>R</span></div>
+                        <div class="col s4 skill-item"><img alt="SQL" src="https://www.vectorlogo.zone/logos/mysql/mysql-icon.svg" class="responsive-img" /><span>SQL</span></div>
+                    </div>
+                </div></div></div>
+
+                <div class="col s12 m6" style="margin-bottom: 1.5rem;"><div class="card"><div class="card-content">
+                    <h4><i class="fa-solid fa-chart-bar"></i> Data Visualization & BI Tools</h4>
+                    <div class="row">
+                        <div class="col s6 skill-item">
+                            <img alt="Power BI" src="https://www.vectorlogo.zone/logos/microsoft_powerbi/microsoft_powerbi-icon.svg" class="responsive-img" />
+                            <span>Power BI</span>
+                        </div>
+                        <div class="col s6 skill-item">
+                            <img alt="Excel" src="https://upload.wikimedia.org/wikipedia/commons/3/34/Microsoft_Office_Excel_%282019%E2%80%93present%29.svg" class="responsive-img" />
+                            <span>Excel</span>
+                        </div>
+                    </div>
+                </div></div></div>
+
+                <div class="col s12 m6" style="margin-bottom: 1.5rem;"><div class="card"><div class="card-content">
+                    <h4><i class="fa-solid fa-brain"></i> Machine Learning</h4>
+                    <div class="row">
+                        <div class="col s4 skill-item"><i class="fa-solid fa-chart-line"></i><span>Predictive Modeling</span></div>
+                        <div class="col s4 skill-item"><i class="fa-solid fa-magnifying-glass-chart"></i><span>Regression Analysis</span></div>
+                        <div class="col s4 skill-item"><i class="fa-solid fa-wand-magic-sparkles"></i><span>Data Preprocessing</span></div>
+                    </div>
+                </div></div></div>
+
+                <div class="col s12 m6" style="margin-bottom: 1.5rem;"><div class="card"><div class="card-content">
+                    <h4><i class="fa-solid fa-database"></i> Database Management</h4>
+                    <div class="row">
+                        <div class="col s6 skill-item"><i class="fa-solid fa-diagram-project"></i><span>Database Design</span></div>
+                        <div class="col s6 skill-item"><i class="fa-solid fa-network-wired"></i><span>Data Integration</span></div>
+                    </div>
+                </div></div></div>
+            </div>
+        </section>
+
+        <!-- Contact Page -->
+        <section id="contact" class="page">
+            <h3 class="page-title white-text"><i class="fa-solid fa-paper-plane"></i> Get In Touch</h3>
+            <div class="center-align">
+                <p class="flow-text" style="margin-bottom: 40px;">Feel free to connect with me on the following platforms.</p>
+                <div class="social-icons">
+                    <a href="mailto:alimohamedali2033@gmail.com" class="btn-floating btn-large waves-effect waves-light" style="background-color: #c71610;"><i class="fa fa-envelope"></i></a>
+                    <a href="https://www.linkedin.com/in/ali-mohamed-2820312b0/" target="_blank" class="btn-floating btn-large waves-effect waves-light" style="background-color: #0077b5;"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://github.com/AliiiMohamedAliii" target="_blank" class="btn-floating btn-large waves-effect waves-light" style="background-color: #333;"><i class="fab fa-github"></i></a>
+                    <a href="https://www.instagram.com/aliiiimohamedd/" target="_blank" class="btn-floating btn-large waves-effect waves-light" style="background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- jQuery & Materialize JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- Typed.js for typing animation -->
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Sidenav Initializer
+            const sidenav_elems = document.querySelectorAll('.sidenav');
+            M.Sidenav.init(sidenav_elems);
+            const sidenav_instance = M.Sidenav.getInstance(sidenav_elems[0]);
+
+            // Typed.js Initializer
+            const typed_options = {
+                strings: ["Data Analyst", "Data Scientist", "Business Analyst"],
+                loop: true,
+                typeSpeed: 80,
+                backSpeed: 40
+            };
+            new Typed('.typing', typed_options);
+            
+            // Page Navigation Logic
+            const navLinks = document.querySelectorAll('.nav-link');
+            const pages = document.querySelectorAll('.page');
+
+            function showPage(targetId) {
+                pages.forEach(page => page.classList.remove('active'));
+                
+                const targetPage = document.querySelector(targetId);
+                if (targetPage) {
+                    setTimeout(() => targetPage.classList.add('active'), 50); 
+                }
+                
+                navLinks.forEach(link => {
+                    link.parentElement.classList.remove('active');
+                    if (link.getAttribute('href') === targetId) {
+                        link.parentElement.classList.add('active');
+                    }
+                });
+
+                if (window.innerWidth < 993) {
+                    sidenav_instance.close();
+                }
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    showPage(targetId);
+                });
+            });
+
+            // Show initial page
+            const initialTarget = window.location.hash || '#intro';
+            showPage(initialTarget);
+
+            // Custom Cursor Logic
+            if (window.matchMedia("(min-width: 993px)").matches) {
+                const cursorDot = document.querySelector(".cursor-dot");
+                const cursorOutline = document.querySelector(".cursor-dot-outline");
+                
+                window.addEventListener("mousemove", function (e) {
+                    const posX = e.clientX;
+                    const posY = e.clientY;
+
+                    cursorDot.style.left = `${posX}px`;
+                    cursorDot.style.top = `${posY}px`;
+
+                    cursorOutline.animate({
+                        left: `${posX}px`,
+                        top: `${posY}px`
+                    }, { duration: 500, fill: "forwards" });
+                });
+
+                document.addEventListener("mouseenter", () => {
+                    document.body.classList.add("cursor-visible");
+                });
+
+                document.addEventListener("mouseleave", () => {
+                    document.body.classList.remove("cursor-visible");
+                });
+
+                document.querySelectorAll("a, button, .card-action, .feature-item, .skill-item, .btn-floating").forEach(el => {
+                    el.addEventListener("mouseenter", () => {
+                        cursorDot.style.transform = 'translate(-50%, -50%) scale(2)';
+                        cursorOutline.style.transform = 'translate(-50%, -50%) scale(0.8)';
+                    });
+                    el.addEventListener("mouseleave", () => {
+                        cursorDot.style.transform = 'translate(-50%, -50%) scale(1)';
+                        cursorOutline.style.transform = 'translate(-50%, -50%) scale(1)';
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>
